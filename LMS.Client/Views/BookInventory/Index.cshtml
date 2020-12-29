@@ -1,0 +1,112 @@
+﻿@using LMS.Client.Models
+
+@model IEnumerable<BookModel>
+@{
+    ViewData["Title"] = "Book Inventory";
+    int i = 0;
+}
+
+<div id="bookinventory" class="container-fluid">
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12 d-flex justify-content-center">
+                                <h3>Book Inventory</h3>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 d-flex justify-content-center">
+                                <img src="~/lib/resources/imgs/library.png" width="150" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <hr>
+                            </div>
+                        </div>
+                        <a asp-action="Create">Create New</a>
+                        <div class="row">
+                            <div class="col">
+                                @{
+                                    if (Model != null)
+                                    {
+                                        foreach (var Data in Model)
+                                        {
+                                            <div class="container-fluid">
+                                                <div class="row border">
+                                                    <div class="col-1">
+                                                        @(++i)
+                                                    </div>
+                                                    <div class="col-10 col-md-9 col-lg-9 col-xl-9">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                @Data.book_name
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                ISBN-13 - @Data.id
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                Author - @Data.author_name
+                                                                &nbsp;| Genre - @Data.genre
+                                                                &nbsp;| Language - @Data.language
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                Description - @Data.book_description
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 col-md-2 col-lg-2 col-xl-2">
+                                                        <row>
+                                                            <img class="img img-fluid p-1" src="@Url.Content("~/lib/resources/books/" + Data.book_img)" />
+                                                        </row>
+                                                        <row>
+                                                            <div class="row">
+                                                                <div class="col text-center">
+                                                                    <a asp-action="Edit" asp-route-id="@Data.id">Edit</a> |
+                                                                    <a href="#">Delete</a>
+                                                                </div>
+                                                            </div>
+                                                        </row>                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#imgview').attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+</script>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

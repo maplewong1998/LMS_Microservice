@@ -1,0 +1,42 @@
+﻿<ul class="navbar-nav">
+    @if (User.Identity.IsAuthenticated)
+    {
+        @if (User.IsInRole("Administrator"))
+        {
+            <li class="nav-item active dropdown">
+                <button style="font-size:14px; font-weight:600" class="btn btn-link nav-link dropdown-toggle px-1 py-0 mx-1 text-dark" data-toggle="dropdown" href="#">Hello @User.Identity.Name</button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" asp-controller="UserProfile" asp-action="Index">Profile</a></li>
+                    <li><div class="dropdown-divider"></div></li>
+                    <li><a class="dropdown-item" asp-controller="MemberManagement" asp-action="Index">Member Management</a></li>
+                    <li><a class="dropdown-item" asp-controller="BookInventory" asp-action="Index">Book Inventory</a></li>
+                    <li><a class="dropdown-item" asp-controller="BookIssuing" asp-action="Index">Book Issuing</a></li>
+                    <li><a class="dropdown-item" href="#">Comment Review</a></li>
+                </ul>
+            </li>
+        }
+        @if (User.IsInRole("User"))
+        {
+            <li class="nav-item active dropdown">
+                <button style="font-size:14px; font-weight:600" class="btn btn-link nav-link dropdown-toggle px-1 py-0 mx-1 text-dark" data-toggle="dropdown" href="#">Hello @User.Identity.Name</button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" asp-controller="UserProfile" asp-action="Index">Profile</a></li>
+                </ul>
+            </li>
+        }
+        <li class="nav-item">
+            <form method="post" asp-controller="Account" asp-action="Logout">
+                <button style="font-size:14px; font-weight:600" id="logout" class="btn btn-link nav-link px-1 py-0 mx-1 text-dark" type="submit"><i class="fas fa-sign-out-alt"></i> Sign Out</button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="btn btn-link nav-link px-1 py-0 mx-1 text-dark" asp-controller="Account" asp-action="Register"><i class="fas fa-user-plus"></i> Create an account</a>
+        </li>
+        <li class="nav-item">
+            <a class="btn btn-link nav-link px-1 py-0 mx-1 text-dark" asp-controller="Account" asp-action="Login"><i class="fas fa-sign-in-alt"></i> Sign in</a>
+        </li>
+    }
+</ul>

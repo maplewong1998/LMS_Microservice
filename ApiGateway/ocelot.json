@@ -1,6 +1,7 @@
 {
   "Routes": [
-    //Book API -- https://localhost:5001/api/Books
+    //Book API -- https://localhost:5001
+    //GET, POST
     {
       "DownstreamPathTemplate": "/api/Books",
       "DownstreamScheme": "https",
@@ -17,6 +18,7 @@
         "AllowedScopes": []
       }
     },
+    //GET, PUT, DELETE
     {
       "DownstreamPathTemplate": "/api/Books/{id}",
       "DownstreamScheme": "https",
@@ -33,7 +35,8 @@
         "AllowedScopes": []
       }
     },
-    //UserManager API https://localhost:5041/api/Users
+    //UserManager API https://localhost:5041
+    //GET, POST
     {
       "DownstreamPathTemplate": "/api/Users",
       "DownstreamScheme": "https",
@@ -50,6 +53,7 @@
         "AllowedScopes": []
       }
     },
+    //GET, PUT, DELETE
     {
       "DownstreamPathTemplate": "/api/Users/{id}",
       "DownstreamScheme": "https",

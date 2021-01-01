@@ -50,7 +50,7 @@ namespace UserManager.API
                 .AddEntityFrameworkStores<UsersAPIContext>()
                 .AddDefaultTokenProviders();
 
-            /*services.AddAuthentication("Bearer")
+            services.AddAuthentication("Bearer")
                 .AddJwtBearer("Bearer", options =>
                 {
                     options.Authority = "https://localhost:5021";
@@ -68,7 +68,7 @@ namespace UserManager.API
                         allowedValues: new string[] { "LMSClient", "LMSClientWithIdentity" }
                     )
                 );
-            });*/
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

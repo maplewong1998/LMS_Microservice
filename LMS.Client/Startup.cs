@@ -1,6 +1,7 @@
 using IdentityModel;
 using IdentityModel.Client;
 using LMS.Client.ApiServices;
+using LMS.Client.HttpHandlers;
 using LMS.Client.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -14,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
+using Movies.Client.HttpHandlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -80,19 +82,38 @@ namespace LMS.Client
                     };
                 });
 
-            services.AddHttpClient("OcelotAPIGateway", client =>
+            services.AddTransient<DefaultDelegatingHandler>();
+
+            services.AddTransient<AuthenticationDelegatingHandler>();
+            
+
+            services.AddHttpClient("DefaultOcelotAPIGateway", client =>
             {
                 client.BaseAddress = new Uri("https://localhost:5031/");
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
-            });
+            }).AddHttpMessageHandler<DefaultDelegatingHandler>();
 
-            services.AddHttpClient("IDPClient", client =>
+            services.AddHttpClient("DefaultIDPClient", client =>
             {
                 client.BaseAddress = new Uri("https://localhost:5021/");
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
             });
+
+            services.AddHttpClient("AuthenticatedOcelotAPIGateway", client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:5031/");
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
+            }).AddHttpMessageHandler<AuthenticationDelegatingHandler>();
+
+            services.AddHttpClient("AuthenticatedIDPClient", client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:5021/");
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
+            }).AddHttpMessageHandler<AuthenticationDelegatingHandler>();
 
             services.AddSingleton(new ClientCredentialsTokenRequest
             {

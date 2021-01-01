@@ -4,14 +4,16 @@ using IdentityServer.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IdentityServer.Data.Migrations.IdentityServer.UserDb
 {
     [DbContext(typeof(AppUserDbContext))]
-    partial class AppUserDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201231085425_5thM")]
+    partial class _5thM
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

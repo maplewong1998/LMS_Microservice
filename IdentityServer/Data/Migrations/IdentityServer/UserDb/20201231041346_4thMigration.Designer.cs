@@ -4,14 +4,16 @@ using IdentityServer.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IdentityServer.Data.Migrations.IdentityServer.UserDb
 {
     [DbContext(typeof(AppUserDbContext))]
-    partial class AppUserDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201231041346_4thMigration")]
+    partial class _4thMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -100,16 +102,16 @@ namespace IdentityServer.Data.Migrations.IdentityServer.UserDb
                         {
                             Id = "27f8010f-4a41-410f-8373-a4a13d69fcf3",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "46a8f37d-0824-44fb-a3b4-81c547e4a743",
+                            ConcurrencyStamp = "d6c33cb1-9205-44aa-8de6-5af536529691",
                             Email = "admin@email.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@EMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJhWvJ8n0n9axcGzE0Apz1yOGM7IXVke1TYDZxFv2mJNooh9LU1XqUNAxG4ZQMfGnw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENrhRBqlGg+cDgiT0gavyB1UJUm57UJYnlycSGkET06lAjfdvKPGVHXBYlLJh8N+Ug==",
                             PhoneNumber = "0101010101",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "16249751-086b-4424-9b49-80365e323025",
+                            SecurityStamp = "4546c7ba-377b-40f1-804c-c59fea81abf6",
                             TwoFactorEnabled = false,
                             UserName = "admin",
                             account_status = "active",
@@ -149,14 +151,14 @@ namespace IdentityServer.Data.Migrations.IdentityServer.UserDb
                         new
                         {
                             Id = "53bed421-b6c4-4890-8a87-0366a97430ea",
-                            ConcurrencyStamp = "a9c833dc-e7d3-4535-97a0-f6daf5fc6dc8",
+                            ConcurrencyStamp = "496aa692-5347-45f4-bb3c-49f405c23a4c",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
                             Id = "ad03ab01-81b4-4b38-89df-5efa55fe488f",
-                            ConcurrencyStamp = "dcbd76f6-f290-4c14-b1b5-0f6ab029ff22",
+                            ConcurrencyStamp = "17ba7c6f-470e-444e-b485-06ac2abc1dc0",
                             Name = "User",
                             NormalizedName = "USER"
                         });

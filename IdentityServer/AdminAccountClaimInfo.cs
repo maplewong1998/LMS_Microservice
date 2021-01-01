@@ -26,57 +26,22 @@ namespace IdentityServer
                     {
                         Id = 2,
                         UserId = AdminAccountInfo.adminId,
-                        ClaimType = JwtClaimTypes.EmailVerified,
-                        ClaimValue = "true"
-                    },
-                    new IdentityUserClaim<string>
-                    {
-                        Id = 3,
-                        UserId = AdminAccountInfo.adminId,
-                        ClaimType = JwtClaimTypes.Address,
-                        ClaimValue = AdminAccountInfo.adminAddress
-                    },
-                    new IdentityUserClaim<string>
-                    {
-                        Id = 4,
-                        UserId = AdminAccountInfo.adminId,
                         ClaimType = JwtClaimTypes.Name,
                         ClaimValue = AdminAccountInfo.adminName
                     },
                     new IdentityUserClaim<string>
                     {
-                        Id = 5,
-                        UserId = AdminAccountInfo.adminId,
-                        ClaimType = JwtClaimTypes.FamilyName,
-                        ClaimValue = AdminAccountInfo.adminFamilyName
-                    },
-                    new IdentityUserClaim<string>
-                    {
-                        Id = 6,
-                        UserId = AdminAccountInfo.adminId,
-                        ClaimType = JwtClaimTypes.GivenName,
-                        ClaimValue = AdminAccountInfo.adminGivenName
-                    },
-                    new IdentityUserClaim<string>
-                    {
-                        Id = 7,
-                        UserId = AdminAccountInfo.adminId,
-                        ClaimType = JwtClaimTypes.PreferredUserName,
-                        ClaimValue = AdminAccountInfo.adminUserName
-                    },
-                    new IdentityUserClaim<string>
-                    {
-                        Id = 8,
-                        UserId = AdminAccountInfo.adminId,
-                        ClaimType = JwtClaimTypes.BirthDate,
-                        ClaimValue = AdminAccountInfo.adminDob
-                    },
-                    new IdentityUserClaim<string>
-                    {
-                        Id = 9,
+                        Id = 3,
                         UserId = AdminAccountInfo.adminId,
                         ClaimType = Constants.AccountStatusClaimType,
                         ClaimValue = AdminAccountInfo.adminAccountStatus
+                    },
+                    new IdentityUserClaim<string>
+                    {
+                        Id = 4,
+                        UserId = AdminAccountInfo.adminId,
+                        ClaimType = Constants.UserIdClaimType,
+                        ClaimValue = AdminAccountInfo.adminId
                     }
                 };
             }

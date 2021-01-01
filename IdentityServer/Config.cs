@@ -39,12 +39,14 @@ namespace IdentityServer
                         AllowedScopes = new List<string>
                         {
                             IdentityServerConstants.StandardScopes.OpenId,
-                            IdentityServerConstants.StandardScopes.Profile,
-                            IdentityServerConstants.StandardScopes.Address,
                             IdentityServerConstants.StandardScopes.Email,
+                            IdentityServerConstants.StandardScopes.Profile,
+                            "name",
+                            "userId",
                             "role",
                             "account_status",
-                            "bookAPI"
+                            "bookAPI",
+                            "userManagerAPI"
                         },
                     },
                     new Client
@@ -59,7 +61,8 @@ namespace IdentityServer
                         },
                         AllowedScopes = new List<string>
                         {
-                            "bookAPI"
+                            "bookAPI",
+                            "userManagerAPI"
                         },
 
                     }
@@ -73,7 +76,8 @@ namespace IdentityServer
             {
                 return new List<ApiScope>
                 {
-                    new ApiScope(name: "bookAPI", displayName: "Book API")
+                    new ApiScope(name: "bookAPI", displayName: "Book API"),
+                    new ApiScope(name: "userManagerAPI", displayName: "User Manager API")
                 };
             }
         }
@@ -92,9 +96,10 @@ namespace IdentityServer
             {
                 return new List<IdentityResource> {
                     new IdentityResources.OpenId(),
-                    new IdentityResources.Profile(),
-                    new IdentityResources.Address(),
                     new IdentityResources.Email(),
+                    new IdentityResources.Profile(),
+                    new IdentityResource("name", new List<string>() { "name" }),
+                    new IdentityResource("userId", new List<string>() { "userId" }),
                     new IdentityResource("role", new List<string>() { "role" }),
                     new IdentityResource("account_status", new List<string>() { "account_status" })
                 };

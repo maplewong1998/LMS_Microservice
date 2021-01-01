@@ -1,21 +1,22 @@
-﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using Books.API.Models;
+using UserManager.API.Models;
 
-namespace Books.API
+namespace UserManager.API
 {
     public class Startup
     {
@@ -36,11 +37,21 @@ namespace Books.API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "UserManager.API", Version = "v1" });
             });
 
-            services.AddDbContext<BooksAPIContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("BooksAPIContext")));
+            services.AddDbContext<UsersAPIContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("IdentityServerDatabaseAppUser")));
 
-            services.AddAuthentication("Bearer")
-                .AddJwtBearer("Bearer", options => 
+            services.AddIdentity<User, IdentityRole>(options =>
+            {
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireDigit = false;
+            })
+                .AddEntityFrameworkStores<UsersAPIContext>()
+                .AddDefaultTokenProviders();
+
+            /*services.AddAuthentication("Bearer")
+                .AddJwtBearer("Bearer", options =>
                 {
                     options.Authority = "https://localhost:5021";
                     options.TokenValidationParameters = new TokenValidationParameters
@@ -49,15 +60,15 @@ namespace Books.API
                     };
                 });
 
-            services.AddAuthorization(options => 
+            services.AddAuthorization(options =>
             {
                 options.AddPolicy("ClientIdPolicy", policy =>
                     policy.RequireClaim(
                         claimType: "client_id",
                         allowedValues: new string[] { "LMSClient", "LMSClientWithIdentity" }
                     )
-                ); 
-            });
+                );
+            });*/
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

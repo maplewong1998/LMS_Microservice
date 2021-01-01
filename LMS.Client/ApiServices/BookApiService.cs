@@ -1,6 +1,7 @@
 ﻿using IdentityModel.Client;
 using LMS.Client.Models;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Newtonsoft.Json;
@@ -26,6 +27,7 @@ namespace LMS.Client.ApiServices
             _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
         }
 
+        [Authorize(Roles = "Administrator")]
         public async Task CreateBook(BookModel book)
         {
             var accessToken = await _httpContextAccessor.HttpContext.GetTokenAsync(OpenIdConnectParameterNames.AccessToken);
@@ -51,6 +53,7 @@ namespace LMS.Client.ApiServices
             response.EnsureSuccessStatusCode();
         }
 
+        [Authorize(Roles = "Administrator")]
         public async Task DeleteBook(string id)
         {
             var accessToken = await _httpContextAccessor.HttpContext.GetTokenAsync(OpenIdConnectParameterNames.AccessToken);
@@ -129,6 +132,7 @@ namespace LMS.Client.ApiServices
             return book;
         }
 
+        [Authorize(Roles = "Administrator")]
         public async Task UpdateBook(BookModel book)
         {
             var accessToken = await _httpContextAccessor.HttpContext.GetTokenAsync(OpenIdConnectParameterNames.AccessToken);

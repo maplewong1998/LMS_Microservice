@@ -35,6 +35,8 @@ namespace LMS.Client
         {
             services.AddMvc();
 
+            services.AddScoped<IUserApiService, UserApiService>();
+
             services.AddScoped<IBookApiService, BookApiService>();
 
             services.AddAuthentication(options =>
@@ -53,14 +55,17 @@ namespace LMS.Client
                     options.ResponseType = "code id_token";
 
                     options.Scope.Add("openid");
+                    options.Scope.Add("name");
                     options.Scope.Add("profile");
                     options.Scope.Add("email");
-                    options.Scope.Add("address");
                     options.Scope.Add("bookAPI");
+                    options.Scope.Add("userManagerAPI");
+                    options.Scope.Add("userId");
                     options.Scope.Add("role");
                     options.Scope.Add("account_status");
 
-                    options.ClaimActions.MapUniqueJsonKey("address", "address");
+                    options.ClaimActions.MapUniqueJsonKey("name", "name");
+                    options.ClaimActions.MapUniqueJsonKey("userId", "userId");
                     options.ClaimActions.MapUniqueJsonKey("role", "role");
                     options.ClaimActions.MapUniqueJsonKey("account_status", "account_status");
 
@@ -70,7 +75,7 @@ namespace LMS.Client
 
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
-                        NameClaimType = JwtClaimTypes.GivenName,
+                        NameClaimType = "name",
                         RoleClaimType = JwtClaimTypes.Role
                     };
                 });
@@ -94,7 +99,7 @@ namespace LMS.Client
                 Address = "https://localhost:5021/connect/token",
                 ClientId = "LMSClient",
                 ClientSecret = "secret",
-                Scope = "bookAPI"
+                Scope = "bookAPI userManagerAPI"
             });
 
             services.AddHttpContextAccessor();

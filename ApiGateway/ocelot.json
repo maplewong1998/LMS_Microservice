@@ -32,6 +32,39 @@
         "AutheticationProvideKey": "IdentityApiKey",
         "AllowedScopes": []
       }
+    },
+    //UserManager API https://localhost:5041/api/Users
+    {
+      "DownstreamPathTemplate": "/api/Users",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "5041"
+        }
+      ],
+      "UpstreamPathTemplate": "/Users",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "AuthenticationOptions": {
+        "AutheticationProvideKey": "IdentityApiKey",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/Users/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "5041"
+        }
+      ],
+      "UpstreamPathTemplate": "/Users/{id}",
+      "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ],
+      "AuthenticationOptions": {
+        "AutheticationProvideKey": "IdentityApiKey",
+        "AllowedScopes": []
+      }
     }
   ]
 }

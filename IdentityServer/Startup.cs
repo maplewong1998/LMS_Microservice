@@ -28,7 +28,7 @@ namespace IdentityServer
 
         public IConfiguration Configuration { get; }
 
-        /*private void InitializeDatabase(IApplicationBuilder app)
+        private void InitializeDatabase(IApplicationBuilder app)
         {
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
@@ -72,7 +72,7 @@ namespace IdentityServer
                     configDbContext.SaveChanges();
                 }
             }
-        }*/
+        }
 
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -114,7 +114,7 @@ namespace IdentityServer
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            //InitializeDatabase(app); //Enable this to initialize Identity Server, comment out after initializing
+            InitializeDatabase(app); //Enable this to initialize Identity Server, comment out after initializing
 
             if (env.IsDevelopment())
             {

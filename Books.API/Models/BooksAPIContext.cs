@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Books.API.Models;
 
-namespace Books.API.Data
+namespace Books.API.Models
 {
     public class BooksAPIContext : DbContext
     {

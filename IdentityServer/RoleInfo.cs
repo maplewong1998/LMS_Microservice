@@ -27,8 +27,8 @@ namespace IdentityServer
                     },
                     new IdentityRole
                     {
-                        Id = userRole,
-                        Name = userRoleId,
+                        Id = userRoleId,
+                        Name = userRole,
                         NormalizedName = userRole.ToUpper()
                     }
                 };

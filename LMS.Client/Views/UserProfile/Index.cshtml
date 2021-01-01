@@ -27,7 +27,7 @@
                         <div class="row">
                             <div class="col-12 d-flex justify-content-center">
                                 <span>Account Status -</span>&nbsp
-                                <label class="badge badge-pill badge-info" id="account_status">                                    
+                                <label class="badge badge-pill badge-info" id="account_status">
                                     @Model.user.account_status
                                 </label>
                             </div>
@@ -75,7 +75,7 @@
 
                             <div class="row">
                                 <div class="col-12">
-                                    Street&nbsp<span asp-validation-for="user.address" class="text-danger"></span>
+                                    Address&nbsp<span asp-validation-for="user.address" class="text-danger"></span>
                                     <div class="form-group">
                                         <textarea asp-for="user.address" class="form-control" id="street_input" type="text" rows="4"></textarea>
 

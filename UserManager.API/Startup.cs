@@ -30,8 +30,8 @@ namespace UserManager.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
 
+            services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "UserManager.API", Version = "v1" });
@@ -50,25 +50,25 @@ namespace UserManager.API
                 .AddEntityFrameworkStores<UsersAPIContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddAuthentication("Bearer")
-                .AddJwtBearer("Bearer", options =>
-                {
-                    options.Authority = "https://localhost:5021";
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateAudience = false
-                    };
-                });
+            //services.AddAuthentication("Bearer")
+            //    .AddJwtBearer("Bearer", options =>
+            //    {
+            //        options.Authority = "https://localhost:5021";
+            //        options.TokenValidationParameters = new TokenValidationParameters
+            //        {
+            //            ValidateAudience = false
+            //        };
+            //    });
 
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("ClientIdPolicy", policy =>
-                    policy.RequireClaim(
-                        claimType: "client_id",
-                        allowedValues: new string[] { "LMSClient", "LMSClientWithIdentity" }
-                    )
-                );
-            });
+            //services.AddAuthorization(options =>
+            //{
+            //    options.AddPolicy("ClientIdPolicy", policy =>
+            //        policy.RequireClaim(
+            //            claimType: "client_id",
+            //            allowedValues: new string[] { "LMSClient", "LMSClientWithIdentity" }
+            //        )
+            //    );
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -40,8 +40,8 @@ namespace IdentityServer
                     {
                         Id = 4,
                         UserId = AdminAccountInfo.adminId,
-                        ClaimType = Constants.UserIdClaimType,
-                        ClaimValue = AdminAccountInfo.adminId
+                        ClaimType = Constants.UsernameClaimType,
+                        ClaimValue = AdminAccountInfo.adminUserName
                     }
                 };
             }

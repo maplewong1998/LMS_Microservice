@@ -27,41 +27,99 @@ namespace UserManager.API.Controllers
 
         // GET: api/Users
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<UserClientView>>> GetUsers()
         {
-            return await _userManager.Users.ToListAsync();
+            List<UserClientView> userListClientView = new List<UserClientView>();
+            List<User> userListDb = await _userManager.Users.ToListAsync();
+            foreach (User user in userListDb)
+            {
+                UserClientView userClientView = new UserClientView
+                {
+                    PhoneNumber = user.PhoneNumber,
+                    Email = user.Email,
+                    UserName = user.UserName,
+                    full_name = user.full_name,
+                    dob = user.dob,
+                    address = user.address,
+                    account_status = user.account_status,
+                    password = null
+                };
+                userListClientView.Add(userClientView);
+            }
+            return userListClientView;
         }
 
         // GET: api/Users/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(string id)
+        [HttpGet("{username}")]
+        public async Task<ActionResult<UserClientView>> GetUser(string username)
         {
-            var User = await _userManager.FindByIdAsync(id);
+            var user = await _userManager.FindByNameAsync(username);
 
-            if (User == null)
+            if (user == null)
             {
                 return NotFound();
             }
 
-            return User;
+            UserClientView userClientView = new UserClientView
+            {
+                PhoneNumber = user.PhoneNumber,
+                Email = user.Email,
+                UserName = user.UserName,
+                full_name = user.full_name,
+                dob = user.dob,
+                address = user.address,
+                account_status = user.account_status,
+                password = null
+            };
+
+            return userClientView;
         }
 
         // PUT: api/Users/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IdentityResult> PutUser(string id, User user)
+        [HttpPut("{username}")]
+        public async Task<IdentityResult> PutUser(string username, UserClientView userClientView)
         {
-            var user_check = await _userManager.FindByIdAsync(id);
+            User user_check = await _userManager.FindByNameAsync(username);
 
-            if (user_check != null)
+            var passwordValidateResult = await _userManager.CheckPasswordAsync(user_check, userClientView.password);
+
+            if (passwordValidateResult)
             {
-                List<Claim> userCheckClaimList = AssembleClaims(user_check.Email, user_check.full_name, user_check.account_status, user_check.Id);
+                List<Claim> userCheckClaimList = AssembleClaims(user_check.Email, user_check.full_name, user_check.account_status);
                 await _userManager.RemoveClaimsAsync(user_check, userCheckClaimList);
             }
+            else
+            {
+                return IdentityResult.Failed();
+            }
 
-            var result = await _userManager.UpdateAsync(user);
-            List<Claim> claimList = AssembleClaims(user.Email, user.full_name, user.account_status, user.Id);
-            await _userManager.AddClaimsAsync(user, claimList);
+            User updatedUser = new User
+            {
+                LockoutEnd = user_check.LockoutEnd,
+                TwoFactorEnabled = user_check.TwoFactorEnabled,
+                PhoneNumberConfirmed = user_check.PhoneNumberConfirmed,
+                PhoneNumber = userClientView.PhoneNumber,//updated
+                ConcurrencyStamp = user_check.ConcurrencyStamp,
+                SecurityStamp = user_check.SecurityStamp,
+                PasswordHash = user_check.PasswordHash,
+                EmailConfirmed = user_check.EmailConfirmed,
+                NormalizedEmail = userClientView.Email.ToUpper(),//updated
+                Email = userClientView.Email,
+                NormalizedUserName = userClientView.UserName.ToUpper(),//updated
+                UserName = userClientView.UserName,//updated
+                Id = user_check.Id,
+                LockoutEnabled = user_check.LockoutEnabled,
+                AccessFailedCount = user_check.AccessFailedCount,
+                full_name = userClientView.full_name,//updated
+                dob = userClientView.dob,//updated
+                address = userClientView.address,//updated
+                account_status = userClientView.account_status//updated
+            };
+
+            var result = await _userManager.UpdateAsync(updatedUser);
+            List<Claim> claimList = AssembleClaims(updatedUser.Email, updatedUser.full_name, updatedUser.account_status);
+            await _userManager.AddClaimsAsync(updatedUser, claimList);
 
             return result;
         }
@@ -69,15 +127,26 @@ namespace UserManager.API.Controllers
         // POST: api/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<IdentityResult> PostUser(User user)
+        public async Task<IdentityResult> PostUser(UserClientView userClientView)
         {
-            var result = await _userManager.CreateAsync(user);
+            User userCreated = new User 
+            {
+                PhoneNumber = userClientView.PhoneNumber,
+                Email = userClientView.Email,
+                UserName = userClientView.UserName,
+                full_name = userClientView.full_name,
+                dob = userClientView.dob,
+                address = userClientView.address,
+                account_status = userClientView.account_status,
+            };
+
+            var result = await _userManager.CreateAsync(userCreated, userClientView.password);
 
             if (result.Succeeded)
             {
-                List<Claim> claimList = AssembleClaims(user.Email, user.full_name, user.account_status, user.Id);
-                await _userManager.AddToRoleAsync(user, "User");
-                await _userManager.AddClaimsAsync(user, claimList);
+                List<Claim> claimList = AssembleClaims(userClientView.Email, userClientView.full_name, userClientView.account_status);
+                await _userManager.AddToRoleAsync(userCreated, "User");
+                await _userManager.AddClaimsAsync(userCreated, claimList);
             }
 
             return result;
@@ -99,7 +168,7 @@ namespace UserManager.API.Controllers
             
             if (result.Succeeded)
             {
-                List<Claim> claimList = AssembleClaims(user.Email, user.full_name, user.account_status, user.Id);
+                List<Claim> claimList = AssembleClaims(user.Email, user.full_name, user.account_status);
                 await _userManager.RemoveFromRoleAsync(user, "User");
                 await _userManager.RemoveClaimsAsync(user, claimList);
             }
@@ -107,20 +176,19 @@ namespace UserManager.API.Controllers
             return result;
         }
 
-        private List<Claim> AssembleClaims(string email, string name, string account_status, string user_id)
+        private List<Claim> AssembleClaims(string email, string name, string account_status)
         {
             return new List<Claim>
             {
                 new Claim(JwtClaimTypes.Email, email),
                 new Claim(JwtClaimTypes.Name, name),
                 new Claim("account_status", account_status),
-                new Claim("userId", user_id)
             };
         }
 
-        private bool UserExists(string id)
+        private bool UserExists(string username)
         {
-            var result = _userManager.FindByIdAsync(id);
+            var result = _userManager.FindByNameAsync(username);
 
             if (result == null)
             {

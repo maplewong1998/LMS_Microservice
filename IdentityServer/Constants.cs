@@ -10,7 +10,7 @@ namespace IdentityServer
         public static readonly string[] roles = { "Administrator", "User" };
 
         public const string RoleClaimType = "role";
-        public const string UserIdClaimType = "userId";
+        public const string UsernameClaimType = "username";
         public const string AccountStatusClaimType = "account_status";
     }
 }

@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Builder;
+using BookIssues.API.Models;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -11,11 +13,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using Books.API.Models;
 
-namespace Books.API
+namespace BookIssues.API
 {
     public class Startup
     {
@@ -29,35 +28,15 @@ namespace Books.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
 
+            services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Books.API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "BookIssues.API", Version = "v1" });
             });
 
-            services.AddDbContext<BooksAPIContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("BooksAPIContext")));
-
-            services.AddAuthentication("Bearer")
-                .AddJwtBearer("Bearer", options =>
-                {
-                    options.Authority = "https://localhost:5021";
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateAudience = false
-                    };
-                });
-
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("ClientIdPolicy", policy =>
-                    policy.RequireClaim(
-                        claimType: "client_id",
-                        allowedValues: new string[] { "LMSClient", "LMSClientWithIdentity" }
-                    )
-                );
-            });
+            services.AddDbContext<BookIssuesAPIContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("BookIssuesAPIContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,14 +46,12 @@ namespace Books.API
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Books.API v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BookIssues.API v1"));
             }
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
-            app.UseAuthentication();
 
             app.UseAuthorization();
 

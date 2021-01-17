@@ -55,7 +55,7 @@
     },
     //GET, PUT, DELETE
     {
-      "DownstreamPathTemplate": "/api/Users/{id}",
+      "DownstreamPathTemplate": "/api/Users/{username}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -63,7 +63,7 @@
           "Port": "5041"
         }
       ],
-      "UpstreamPathTemplate": "/Users/{id}",
+      "UpstreamPathTemplate": "/Users/{username}",
       "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ],
       "AuthenticationOptions": {
         "AutheticationProvideKey": "IdentityApiKey",

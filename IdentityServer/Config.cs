@@ -42,11 +42,12 @@ namespace IdentityServer
                             IdentityServerConstants.StandardScopes.Email,
                             IdentityServerConstants.StandardScopes.Profile,
                             "name",
-                            "userId",
+                            "username",
                             "role",
                             "account_status",
                             "bookAPI",
-                            "userManagerAPI"
+                            "userManagerAPI",
+                            "bookIssuesAPI"
                         },
                     },
                     new Client
@@ -77,7 +78,8 @@ namespace IdentityServer
                 return new List<ApiScope>
                 {
                     new ApiScope(name: "bookAPI", displayName: "Book API"),
-                    new ApiScope(name: "userManagerAPI", displayName: "User Manager API")
+                    new ApiScope(name: "userManagerAPI", displayName: "User Manager API"),
+                    new ApiScope(name: "bookIssuesAPI", displayName: "Book Issues API")
                 };
             }
         }
@@ -99,7 +101,7 @@ namespace IdentityServer
                     new IdentityResources.Email(),
                     new IdentityResources.Profile(),
                     new IdentityResource("name", new List<string>() { "name" }),
-                    new IdentityResource("userId", new List<string>() { "userId" }),
+                    new IdentityResource("username", new List<string>() { "username" }),
                     new IdentityResource("role", new List<string>() { "role" }),
                     new IdentityResource("account_status", new List<string>() { "account_status" })
                 };

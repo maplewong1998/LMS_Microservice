@@ -62,12 +62,12 @@ namespace LMS.Client
                     options.Scope.Add("email");
                     options.Scope.Add("bookAPI");
                     options.Scope.Add("userManagerAPI");
-                    options.Scope.Add("userId");
+                    options.Scope.Add("username");
                     options.Scope.Add("role");
                     options.Scope.Add("account_status");
 
                     options.ClaimActions.MapUniqueJsonKey("name", "name");
-                    options.ClaimActions.MapUniqueJsonKey("userId", "userId");
+                    options.ClaimActions.MapUniqueJsonKey("username", "username");
                     options.ClaimActions.MapUniqueJsonKey("role", "role");
                     options.ClaimActions.MapUniqueJsonKey("account_status", "account_status");
 

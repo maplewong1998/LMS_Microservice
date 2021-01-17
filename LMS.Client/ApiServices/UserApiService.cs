@@ -23,7 +23,7 @@ namespace LMS.Client.ApiServices
             _httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory));
         }
 
-        public async Task CreateUser(AppUserModel user)
+        public async Task CreateUser(AppUserClientViewModel user)
         {
             var httpClient = _httpClientFactory.CreateClient("AuthenticatedOcelotAPIGateway");
 
@@ -42,16 +42,16 @@ namespace LMS.Client.ApiServices
         }
 
         [Authorize(Roles = "Administrator")]
-        public Task DeleteUser(string id)
+        public Task DeleteUser(string username)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<AppUserModel> GetUser(string id)
+        public async Task<AppUserClientViewModel> GetUser(string username)
         {
             var httpClient = _httpClientFactory.CreateClient("AuthenticatedOcelotAPIGateway");
 
-            var request = new HttpRequestMessage(HttpMethod.Get, $"/Users/{id}");
+            var request = new HttpRequestMessage(HttpMethod.Get, $"/Users/{username}");
 
             var response = await httpClient.SendAsync(
                     request, HttpCompletionOption.ResponseHeadersRead
@@ -61,13 +61,13 @@ namespace LMS.Client.ApiServices
 
             var content = await response.Content.ReadAsStringAsync();
 
-            AppUserModel user = JsonConvert.DeserializeObject<AppUserModel>(content);
+            AppUserClientViewModel user = JsonConvert.DeserializeObject<AppUserClientViewModel>(content);
 
             return user;
         }
 
         [Authorize(Roles = "Administrator")]
-        public async Task<IEnumerable<AppUserModel>> GetUsers()
+        public async Task<IEnumerable<AppUserClientViewModel>> GetUsers()
         {
             var httpClient = _httpClientFactory.CreateClient("AuthenticatedOcelotAPIGateway");
 
@@ -81,12 +81,12 @@ namespace LMS.Client.ApiServices
 
             var content = await response.Content.ReadAsStringAsync();
 
-            List<AppUserModel> userList = JsonConvert.DeserializeObject<List<AppUserModel>>(content);
+            List<AppUserClientViewModel> userList = JsonConvert.DeserializeObject<List<AppUserClientViewModel>>(content);
 
             return userList;
         }
 
-        public Task UpdateUser(AppUserModel user)
+        public Task UpdateUser(AppUserClientViewModel user)
         {
             throw new NotImplementedException();
         }

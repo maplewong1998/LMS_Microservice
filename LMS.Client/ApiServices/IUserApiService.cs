@@ -8,10 +8,10 @@ namespace LMS.Client.ApiServices
 {
     public interface IUserApiService
     {
-        Task<IEnumerable<AppUserModel>> GetUsers();
-        Task<AppUserModel> GetUser(string id);
-        Task CreateUser(AppUserModel user);
-        Task UpdateUser(AppUserModel user);
-        Task DeleteUser(string id);
+        Task<IEnumerable<AppUserClientViewModel>> GetUsers();
+        Task<AppUserClientViewModel> GetUser(string username);
+        Task CreateUser(AppUserClientViewModel user);
+        Task UpdateUser(AppUserClientViewModel user);
+        Task DeleteUser(string username);
     }
 }

@@ -10,9 +10,11 @@ using Microsoft.AspNetCore.Http;
 using LMS.Client.ViewModels;
 using LMS.Client.ApiServices;
 using LMS.Client.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LMS.Client.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class BookInventoryController : Controller
     {
         private readonly IWebHostEnvironment _webHostEnvironment;

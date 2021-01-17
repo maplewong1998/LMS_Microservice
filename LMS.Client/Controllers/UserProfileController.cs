@@ -1,6 +1,8 @@
 ﻿using LMS.Client.ApiServices;
 using LMS.Client.ViewModels;
 using LMS.Models;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -12,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace LMS.Client.Controllers
 {
+    [Authorize(AuthenticationSchemes = OpenIdConnectDefaults.AuthenticationScheme)]
     public class UserProfileController : Controller
     {
         private readonly IUserApiService _userApiService;
@@ -31,8 +34,8 @@ namespace LMS.Client.Controllers
         public async Task<IActionResult> Index(UserProfileViewModel viewModel)
         {
             ClaimsIdentity claimsIdentity = User.Identity as ClaimsIdentity;
-            string userIdValue = claimsIdentity.FindFirst("userId").Value;
-            var userProfile = await _userApiService.GetUser(userIdValue);
+            string usernameValue = claimsIdentity.FindFirst("username").Value;
+            var userProfile = await _userApiService.GetUser(usernameValue);
 
             viewModel.user = userProfile;
 

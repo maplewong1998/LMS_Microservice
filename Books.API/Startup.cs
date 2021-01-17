@@ -49,15 +49,15 @@ namespace Books.API
                     };
                 });
 
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("ClientIdPolicy", policy =>
-                    policy.RequireClaim(
-                        claimType: "client_id",
-                        allowedValues: new string[] { "LMSClient", "LMSClientWithIdentity" }
-                    )
-                );
-            });
+            //services.AddAuthorization(options =>
+            //{
+            //    options.AddPolicy("ClientIdPolicy", policy =>
+            //        policy.RequireClaim(
+            //            claimType: "client_id",
+            //            allowedValues: new string[] { "LMSClient", "LMSClientWithIdentity" }
+            //        )
+            //    );
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

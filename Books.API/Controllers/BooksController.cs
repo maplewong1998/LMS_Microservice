@@ -12,7 +12,7 @@ namespace Books.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize("ClientIdPolicy")]
+    //[Authorize("ClientIdPolicy")]
     public class BooksController : ControllerBase
     {
         private readonly BooksAPIContext _context;

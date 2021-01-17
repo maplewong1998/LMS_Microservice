@@ -24,15 +24,15 @@ namespace IdentityServer
                         ClientName = "LMS Client With Identity",
                         AllowedGrantTypes = GrantTypes.Hybrid,
                         RequirePkce = false,
-                        ClientSecrets =
+                        ClientSecrets = new List<Secret>
                         {
                             new Secret("secret".Sha256())
                         },
-                        RedirectUris = 
+                        RedirectUris = new List<string>
                         {
                             "https://localhost:5011/signin-oidc" //client app port signin
                         },
-                        PostLogoutRedirectUris = 
+                        PostLogoutRedirectUris = new List<string>
                         { 
                             "https://localhost:5011/signout-callback-oidc" //client app port signout
                         },
@@ -56,7 +56,7 @@ namespace IdentityServer
                         ClientName = "LMS Client",
                         AllowedGrantTypes = GrantTypes.ClientCredentials,
                         RequirePkce = false,
-                        ClientSecrets =
+                        ClientSecrets = new List<Secret>
                         {
                             new Secret("secret".Sha256())
                         },

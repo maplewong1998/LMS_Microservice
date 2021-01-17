@@ -15,7 +15,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
-using Movies.Client.HttpHandlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,14 +56,15 @@ namespace LMS.Client
                     options.ResponseType = "code id_token";
 
                     options.Scope.Add("openid");
-                    options.Scope.Add("name");
-                    options.Scope.Add("profile");
                     options.Scope.Add("email");
-                    options.Scope.Add("bookAPI");
-                    options.Scope.Add("userManagerAPI");
+                    options.Scope.Add("profile");
+                    options.Scope.Add("name");
                     options.Scope.Add("username");
                     options.Scope.Add("role");
                     options.Scope.Add("account_status");
+                    options.Scope.Add("bookAPI");
+                    options.Scope.Add("userManagerAPI");
+                    options.Scope.Add("bookIssuesAPI");
 
                     options.ClaimActions.MapUniqueJsonKey("name", "name");
                     options.ClaimActions.MapUniqueJsonKey("username", "username");

@@ -15,7 +15,7 @@
       "UpstreamHttpMethod": [ "GET", "POST" ],
       "AuthenticationOptions": {
         "AutheticationProvideKey": "IdentityApiKey",
-        "AllowedScopes": []
+        "AllowedScopes": [ "bookAPI" ]
       }
     },
     //GET, PUT, DELETE
@@ -32,7 +32,7 @@
       "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ],
       "AuthenticationOptions": {
         "AutheticationProvideKey": "IdentityApiKey",
-        "AllowedScopes": []
+        "AllowedScopes": [ "bookAPI" ]
       }
     },
     //UserManager API https://localhost:5041
@@ -50,7 +50,7 @@
       "UpstreamHttpMethod": [ "GET", "POST" ],
       "AuthenticationOptions": {
         "AutheticationProvideKey": "IdentityApiKey",
-        "AllowedScopes": []
+        "AllowedScopes": [ "userManagerAPI" ]
       }
     },
     //GET, PUT, DELETE
@@ -67,7 +67,7 @@
       "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ],
       "AuthenticationOptions": {
         "AutheticationProvideKey": "IdentityApiKey",
-        "AllowedScopes": []
+        "AllowedScopes": [ "userManagerAPI" ]
       }
     }
   ]

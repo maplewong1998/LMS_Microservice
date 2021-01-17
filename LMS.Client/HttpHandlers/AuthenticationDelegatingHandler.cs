@@ -9,7 +9,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Movies.Client.HttpHandlers
+namespace LMS.Client.HttpHandlers
 {
     public class AuthenticationDelegatingHandler : DelegatingHandler
     {
